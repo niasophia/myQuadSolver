@@ -77,10 +77,15 @@ function results() {
   vY = a*Math.pow(vX,2)+b*vX+c*1;
   vY = vY.toFixed(1);
   vX = vX.toFixed(1);
-  context.arc(vX,vY,5,0,6.28);
+  context.beginPath();
+  context.arc(w/2+vX*k,h/2-vY*k,5,0,6.28);
   context.fill();
   $("#vertex").text("Vertex is at (" + vX+","+vY+")");
-  $("#vertexForm").text("Vertex Form is y=",a,"(x-",h,")^2",k);
+  $("#vertexForm").text("Vertex Form is y= "+a+"(x-"+vX+")^2+ "+vY);
+  $("#yInt").text("the y intercept is at (0,"+c+")");
+  context.beginPath();
+  context.arc(w/2,h/2-c*k,5,0,6.28);
+  context.fill();
 
 }  // close results()
 
@@ -98,9 +103,13 @@ else{
 x1 = (-1*b+d**.5)/(2*a)
 x2 = (-1*b-d**.5)/(2*a)
 x1 = x1.toFixed(3);
-x2 = Math.round(x2,3);
+x2 = x2.toFixed(3);
 $("#solution1").text("x = " + x1);
 $("#solution2").text("x = " + x2);
+  context.beginPath();
+  context.arc(w/2+x1*k,h/2,5,0,6.28);
+  context.arc(w/2+x2*k,h/2,5,0,6.28);
+  context.fill();
 
 }  //close of the if-else
 
@@ -138,7 +147,8 @@ function resetCanvas(){
   context.clearRect(0,0,w,h);
   grid();
   graphQuad();
-
+  results();
+  solutions();
 } // end resetCanvas
 
 function doMouseMove(event) {
